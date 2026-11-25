@@ -7,6 +7,7 @@ on:
     paths:
       - "GUTDManager/supabase/config.toml"
       - "GUTDManager/supabase/functions/band-manager/**"
+      - "GUTDManager/supabase/functions/push-notifications/**"
       - ".github/workflows/deploy-band-manager.yml"
   workflow_dispatch:
 
@@ -30,3 +31,9 @@ jobs:
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: supabase functions deploy band-manager --remote=pibgazoibrdhwnotdazd --yes
+
+      - name: Deploy push notifications function
+        working-directory: GUTDManager
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: supabase functions deploy push-notifications --remote=pibgazoibrdhwnotdazd --yes
