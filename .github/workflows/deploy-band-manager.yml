@@ -29,4 +29,4 @@ jobs:
         working-directory: GUTDManager
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-        run: supabase functions deploy band-manager --project-ref pibgazoibrdhwnotdazd
+        run: supabase functions deploy band-manager --remote=pibgazoibrdhwnotdazd --yes
