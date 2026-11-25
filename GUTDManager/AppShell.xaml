@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="GUTDManager.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:GUTDManager"
+    Title="GUTD Manager"
+    FlyoutBehavior="Flyout">
+
+    <Shell.FlyoutHeader>
+        <Grid Padding="20" RowDefinitions="Auto,Auto" BackgroundColor="#17171C">
+            <Label Text="GUTD" FontSize="30" FontAttributes="Bold" TextColor="#FFFFFF" />
+            <Label Grid.Row="1" Text="Band Operations" TextColor="#B7B7C2" />
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <ShellContent Title="Dashboard" ContentTemplate="{DataTemplate local:MainPage}" Route="dashboard" />
+    <ShellContent Title="Chat" ContentTemplate="{DataTemplate local:FeaturePage}" Route="chat" />
+    <ShellContent Title="AI Manager" ContentTemplate="{DataTemplate local:FeaturePage}" Route="agent" />
+    <ShellContent Title="Calendar" ContentTemplate="{DataTemplate local:FeaturePage}" Route="calendar" />
+    <ShellContent Title="Tasks" ContentTemplate="{DataTemplate local:FeaturePage}" Route="tasks" />
+    <ShellContent Title="Setlists" ContentTemplate="{DataTemplate local:FeaturePage}" Route="setlists" />
+    <ShellContent Title="Merch" ContentTemplate="{DataTemplate local:FeaturePage}" Route="merch" />
+    <ShellContent Title="Fan Updates" ContentTemplate="{DataTemplate local:FeaturePage}" Route="fans" />
+    <ShellContent Title="Contacts" ContentTemplate="{DataTemplate local:FeaturePage}" Route="contacts" />
+    <ShellContent Title="Content" ContentTemplate="{DataTemplate local:FeaturePage}" Route="content" />
+    <ShellContent Title="Files" ContentTemplate="{DataTemplate local:FeaturePage}" Route="files" />
+    <ShellContent Title="Expenses" ContentTemplate="{DataTemplate local:FeaturePage}" Route="expenses" />
+
+</Shell>

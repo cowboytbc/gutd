@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GUTDManager.MainPage"
+             BackgroundColor="#0D0D10">
+
+    <Grid RowDefinitions="Auto,*" Padding="20" RowSpacing="16">
+        <VerticalStackLayout>
+            <Label Text="GUTD" FontSize="34" FontAttributes="Bold" TextColor="White" />
+            <Label Text="Tyler, Texas · Band Command Center" TextColor="#A6A6B2" />
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="16">
+                <Border Stroke="#353541" StrokeShape="RoundRectangle 14" Padding="16" BackgroundColor="#17171C">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="NEXT UP" TextColor="#A6A6B2" FontSize="12" FontAttributes="Bold" />
+                        <Label Text="No event scheduled" TextColor="White" FontSize="20" FontAttributes="Bold" />
+                        <Button Text="Add an event" Clicked="OnAddEvent" BackgroundColor="#E33B3B" TextColor="White" Margin="0,8,0,0" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Label Text="Workspace" TextColor="White" FontSize="20" FontAttributes="Bold" />
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                    <Button Text="Chat" Clicked="OnChat" Grid.Row="0" Grid.Column="0" />
+                    <Button Text="Calendar" Clicked="OnCalendar" Grid.Row="0" Grid.Column="1" />
+                    <Button Text="Tasks" Clicked="OnTasks" Grid.Row="1" Grid.Column="0" />
+                    <Button Text="Setlists" Clicked="OnSetlists" Grid.Row="1" Grid.Column="1" />
+                    <Button Text="Merch" Clicked="OnMerch" Grid.Row="2" Grid.Column="0" />
+                    <Button Text="Fan Updates" Clicked="OnFans" Grid.Row="2" Grid.Column="1" />
+                    <Button Text="Contacts" Clicked="OnContacts" Grid.Row="3" Grid.Column="0" />
+                    <Button Text="Content" Clicked="OnContent" Grid.Row="3" Grid.Column="1" />
+                    <Button Text="Files" Clicked="OnFiles" Grid.Row="4" Grid.Column="0" />
+                    <Button Text="Expenses" Clicked="OnExpenses" Grid.Row="4" Grid.Column="1" />
+                    <Button Text="AI Manager" Clicked="OnManager" Grid.Row="5" Grid.ColumnSpan="2" BackgroundColor="#353541" TextColor="White" />
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

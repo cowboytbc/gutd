@@ -1,0 +1,4 @@
+project_id = "pibgazoibrdhwnotdazd"
+
+[functions.band-manager]
+verify_jwt = true

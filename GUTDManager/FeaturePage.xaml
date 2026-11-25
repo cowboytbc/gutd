@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:GUTDManager.Models"
+             x:Class="GUTDManager.FeaturePage"
+             BackgroundColor="#0D0D10">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20" RowSpacing="12">
+        <Label x:Name="TitleLabel" Text="Workspace" FontSize="28" FontAttributes="Bold" TextColor="White" />
+
+        <CollectionView x:Name="ItemsView" Grid.Row="1" EmptyView="Nothing here yet.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <Border Margin="0,4" Padding="14" Stroke="#353541" StrokeShape="RoundRectangle 12" BackgroundColor="#17171C">
+                        <Label Text="{Binding}" TextColor="White" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid x:Name="ItemEntryPanel" Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="8">
+            <Entry x:Name="NewItemEntry" Placeholder="Add an item..." PlaceholderColor="#85858F" TextColor="White" />
+            <Button Grid.Column="1" Text="Add" Clicked="OnAddItem" BackgroundColor="#E33B3B" TextColor="White" />
+        </Grid>
+
+        <VerticalStackLayout x:Name="AuthPanel" Grid.Row="1" Spacing="12" IsVisible="False">
+            <Label Text="Sign in to your band workspace" TextColor="#B7B7C2" />
+            <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" TextColor="White" />
+            <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" TextColor="White" />
+            <Button Text="Sign in" Clicked="OnSignIn" BackgroundColor="#E33B3B" TextColor="White" />
+            <Button Text="Create account" Clicked="OnSignUp" />
+            <Label x:Name="AuthStatusLabel" TextColor="#B7B7C2" />
+        </VerticalStackLayout>
+
+        <Grid x:Name="ChatPanel" Grid.Row="1" IsVisible="False" RowDefinitions="Auto,*,Auto" RowSpacing="10">
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <Label Text="Band chat" FontSize="18" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
+                <Button Grid.Column="1" Text="Invite" Clicked="OnCreateInvite" />
+                <Button Grid.Column="2" Text="Sign out" Clicked="OnSignOut" />
+            </Grid>
+            <CollectionView x:Name="MessagesView" Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:BandMessage">
+                        <Border Margin="0,3" Padding="12" Stroke="#353541" StrokeShape="RoundRectangle 12" BackgroundColor="#17171C">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding SenderEmail}" FontSize="12" TextColor="#E36B6B" />
+                                <Label Text="{Binding Body}" TextColor="White" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Label Text="No messages yet. Say hello to the band." TextColor="#A6A6B2" HorizontalOptions="Center" />
+                </CollectionView.EmptyView>
+            </CollectionView>
+            <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                <Entry x:Name="MessageEntry" Placeholder="Write a message..." TextColor="White" />
+                <Button Grid.Column="1" Text="Send" Clicked="OnSendMessage" BackgroundColor="#E33B3B" TextColor="White" />
+            </Grid>
+        </Grid>
+
+        <VerticalStackLayout x:Name="SetupPanel" Grid.Row="1" Spacing="12" IsVisible="False">
+            <Label Text="Start your shared band workspace" TextColor="White" FontSize="18" FontAttributes="Bold" />
+            <Entry x:Name="BandNameEntry" Text="GUTD" Placeholder="Band name" TextColor="White" />
+            <Button Text="Create band workspace" Clicked="OnCreateBand" BackgroundColor="#E33B3B" TextColor="White" />
+            <Label Text="Already have an invite code?" TextColor="#B7B7C2" />
+            <Entry x:Name="InviteCodeEntry" Placeholder="Invite code" TextColor="White" />
+            <Button Text="Join band" Clicked="OnJoinBand" />
+            <Label x:Name="SetupStatusLabel" TextColor="#B7B7C2" />
+        </VerticalStackLayout>
+
+        <Grid x:Name="CalendarPanel" Grid.Row="1" RowDefinitions="Auto,*" RowSpacing="12" IsVisible="False">
+            <VerticalStackLayout Spacing="8">
+                <Entry x:Name="EventTitleEntry" Placeholder="Event or rehearsal name" TextColor="White" />
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                    <DatePicker x:Name="EventDatePicker" TextColor="White" />
+                    <TimePicker x:Name="EventTimePicker" Grid.Column="1" TextColor="White" />
+                </Grid>
+                <Entry x:Name="EventLocationEntry" Placeholder="Location" TextColor="White" />
+                <Button Text="Add to calendar" Clicked="OnAddEvent" BackgroundColor="#E33B3B" TextColor="White" />
+            </VerticalStackLayout>
+            <CollectionView x:Name="EventsView" Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:BandEvent">
+                        <Border Margin="0,4" Padding="14" Stroke="#353541" StrokeShape="RoundRectangle 12" BackgroundColor="#17171C">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding Title}" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="{Binding StartsAt, StringFormat='{0:ddd, MMM d · h:mm tt}'}" TextColor="#B7B7C2" />
+                                <Label Text="{Binding Location}" TextColor="#B7B7C2" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Label Text="No events yet. Add a rehearsal or show." TextColor="#A6A6B2" HorizontalOptions="Center" />
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </Grid>
+
+        <Grid x:Name="TasksPanel" Grid.Row="1" RowDefinitions="Auto,*" RowSpacing="12" IsVisible="False">
+            <VerticalStackLayout Spacing="8">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                    <Entry x:Name="TaskTitleEntry" Placeholder="New task" TextColor="White" />
+                    <Button Grid.Column="1" Text="Add" Clicked="OnAddTask" BackgroundColor="#E33B3B" TextColor="White" />
+                </Grid>
+                <DatePicker x:Name="TaskDuePicker" TextColor="White" />
+            </VerticalStackLayout>
+            <CollectionView x:Name="TasksView" Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:BandTask">
+                        <Border Margin="0,4" Padding="12" Stroke="#353541" StrokeShape="RoundRectangle 12" BackgroundColor="#17171C">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" TextColor="White" />
+                                    <Label Text="{Binding DueAt, StringFormat='Due {0:MMM d}'}" TextColor="#B7B7C2" />
+                                </VerticalStackLayout>
+                                <Button Grid.Column="1" Text="{Binding Status}" Clicked="OnToggleTask" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Label Text="No tasks yet. Add one for the band." TextColor="#A6A6B2" HorizontalOptions="Center" />
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </Grid>
+
+        <VerticalStackLayout x:Name="SignInRequiredPanel" Grid.Row="1" Spacing="8" IsVisible="False">
+            <Label Text="Sign in and create or join your band from Chat to use shared workspace features." TextColor="#B7B7C2" />
+            <Label x:Name="WorkspaceStatusLabel" TextColor="IndianRed" />
+        </VerticalStackLayout>
+
+        <Grid x:Name="ManagerPanel" Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,*,Auto" RowSpacing="10" IsVisible="False">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="GUTD's AI planning assistant" FontSize="18" FontAttributes="Bold" TextColor="White" />
+                <Label Text="It can draft ideas and research. It cannot change your workspace, contact anyone, publish, or spend." TextColor="#B7B7C2" FontSize="12" />
+                <Label Text="Only band name, upcoming event titles/dates, and open task titles/statuses are sent to Gemini. No contact details or document contents. Gemini's free tier may use prompts to improve Google products." TextColor="#B7B7C2" FontSize="12" />
+            </VerticalStackLayout>
+            <Editor x:Name="ManagerQuestionEntry" Grid.Row="1" Placeholder="Ask about planning, promotion, shows, or content..." AutoSize="TextChanges" TextColor="White" />
+            <Grid Grid.Row="2" ColumnDefinitions="Auto,*">
+                <Switch x:Name="WebResearchSwitch" IsToggled="False" />
+                <Label Grid.Column="1" Text="Live web research (Google charges may apply)" TextColor="#B7B7C2" VerticalOptions="Center" />
+            </Grid>
+            <Button x:Name="AskManagerButton" Grid.Row="3" Text="Ask GUTD's AI Manager" Clicked="OnAskManager" BackgroundColor="#E33B3B" TextColor="White" />
+            <ScrollView Grid.Row="4">
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="ManagerAnswerLabel" TextColor="White" />
+                    <VerticalStackLayout x:Name="ManagerSourcesLayout" Spacing="6">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:BandManagerSource">
+                                <Button Text="{Binding Title}" Clicked="OnOpenManagerSource" HorizontalOptions="Start" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+            <Label x:Name="ManagerStatusLabel" Grid.Row="5" TextColor="#B7B7C2" />
+        </Grid>
+    </Grid>
+</ContentPage>
