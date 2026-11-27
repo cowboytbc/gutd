@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#101416">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="GUTD">
@@ -13,7 +13,9 @@
   <body>
     <header class="header">
       <img class="brand" src="./band-logo.png" alt="GIVE US THIS DAY">
-      <button id="sign-out" class="quiet" type="button" hidden>Sign out</button>
+      <button id="sign-out" class="quiet" type="button" aria-label="Sign out" title="Sign out" hidden>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21H5V3h8v4M13 17v4M9 12h12m-4-4 4 4-4 4"/></svg>
+      </button>
     </header>
 
     <main>
