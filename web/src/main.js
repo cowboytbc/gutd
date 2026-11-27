@@ -60,6 +60,7 @@ function reset() {
   $('pinned').textContent = 'Pinned';
   $('pinned').setAttribute('aria-pressed', 'false');
   $('message-text').value = '';
+  $('message-text').style.height = '';
   $('chat-file').value = '';
   $('chat-file-name').textContent = '';
   $('vault-file').value = '';
@@ -491,11 +492,17 @@ $('pinned').addEventListener('click', () => busy($('pinned'), async () => {
   await loadChat(true);
 }));
 $('chat-file').addEventListener('change', () => { $('chat-file-name').textContent = $('chat-file').files[0]?.name || ''; });
+$('message-text').addEventListener('input', () => {
+  const field = $('message-text');
+  field.style.height = 'auto';
+  field.style.height = `${Math.min(field.scrollHeight + 2, 120)}px`;
+});
 $('message-form').addEventListener('submit', event => {
   event.preventDefault();
   busy(event.submitter || $('message-form').querySelector('[type=submit]'), async () => {
     await api.sendMessage(state.user, state.member.band_id, $('message-text').value, $('chat-file').files[0]);
-    $('message-text').value = ''; $('chat-file').value = ''; $('chat-file-name').textContent = '';
+    $('message-text').value = ''; $('message-text').style.height = '';
+    $('chat-file').value = ''; $('chat-file-name').textContent = '';
     await loadChat(true);
   });
 });

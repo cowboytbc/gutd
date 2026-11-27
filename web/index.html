@@ -20,7 +20,6 @@
       <section id="auth" class="panel narrow" hidden>
         <p class="eyebrow">BAND ACCOUNT</p>
         <h1 id="auth-heading">Sign in</h1>
-        <p class="muted">Your band’s private space.</p>
         <form id="auth-form" class="stack">
           <label id="name-label" hidden>Display name<input id="display-name" maxlength="80" autocomplete="name"></label>
           <label>Email<input id="email" type="email" autocomplete="email" required></label>
@@ -66,10 +65,11 @@
           <div id="messages" class="messages" aria-label="Chat messages"></div>
           <form id="message-form" class="composer">
             <label class="attach" title="Attach a file">
-              <span aria-hidden="true">&#128206;</span><span class="sr-only">Attach a file</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 12.5 15.5 5a4 4 0 0 1 5.7 5.7l-9.2 9.2a6 6 0 0 1-8.5-8.5L12 3.9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="sr-only">Attach a file</span>
               <input id="chat-file" type="file">
             </label>
-            <textarea id="message-text" maxlength="4000" rows="2" placeholder="Write a message..." aria-label="Message"></textarea>
+            <textarea id="message-text" maxlength="4000" rows="1" placeholder="Message" aria-label="Message"></textarea>
             <button type="submit">Send</button>
           </form>
           <p id="chat-file-name" class="muted"></p>
