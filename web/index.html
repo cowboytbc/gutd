@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#101416">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="GUTD">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="apple-touch-icon" href="./band-icon-192.png">
+    <title>GIVE US THIS DAY</title>
+  </head>
+  <body>
+    <header class="header">
+      <img class="brand" src="./band-logo.png" alt="GIVE US THIS DAY">
+      <button id="sign-out" class="quiet" type="button" hidden>Sign out</button>
+    </header>
+
+    <main>
+      <section id="auth" class="panel narrow" hidden>
+        <p class="eyebrow">BAND ACCOUNT</p>
+        <h1 id="auth-heading">Sign in</h1>
+        <p class="muted">Your band’s private space.</p>
+        <form id="auth-form" class="stack">
+          <label id="name-label" hidden>Display name<input id="display-name" maxlength="80" autocomplete="name"></label>
+          <label>Email<input id="email" type="email" autocomplete="email" required></label>
+          <label>Password<input id="password" type="password" minlength="6" autocomplete="current-password" required></label>
+          <button id="auth-submit" type="submit">Sign in</button>
+          <button id="auth-toggle" class="quiet" type="button">Create an account</button>
+        </form>
+      </section>
+
+      <section id="waiting" class="panel narrow" hidden>
+        <p class="eyebrow">BAND ACCESS</p>
+        <h1>Join GIVE US THIS DAY</h1>
+        <p>A band member must approve your account before you can enter.</p>
+        <p id="waiting-status" class="muted"></p>
+        <div class="actions">
+          <button id="check-access" type="button">Check access</button>
+          <button id="retry-access" class="quiet" type="button" hidden>Request again</button>
+        </div>
+      </section>
+
+      <section id="workspace" hidden>
+        <nav class="tabs" aria-label="Band sections">
+          <button type="button" data-tab="chat" aria-current="page">Chat</button>
+          <button type="button" data-tab="calendar">Calendar</button>
+          <button type="button" data-tab="vault">Vault</button>
+        </nav>
+
+        <div id="requests-notice" class="notice" hidden>
+          <span id="requests-message"></span>
+          <button id="show-requests" class="quiet" type="button">Review</button>
+        </div>
+        <section id="requests" class="panel" hidden>
+          <div class="section-heading"><h2>Access requests</h2><button id="close-requests" class="quiet" type="button">Close</button></div>
+          <p class="muted">Names and emails aren’t verified. Check with the person another way before approving.</p>
+          <div id="requests-list" class="stack"></div>
+        </section>
+
+        <section id="chat" class="panel tab-content">
+          <div class="section-heading">
+            <div><p class="eyebrow">GIVE US THIS DAY</p><h1>Band chat</h1></div>
+            <button id="pinned" class="quiet" type="button" aria-pressed="false">Pinned</button>
+          </div>
+          <div id="messages" class="messages" aria-label="Chat messages"></div>
+          <form id="message-form" class="composer">
+            <label class="attach" title="Attach a file">
+              <span aria-hidden="true">&#128206;</span><span class="sr-only">Attach a file</span>
+              <input id="chat-file" type="file">
+            </label>
+            <textarea id="message-text" maxlength="4000" rows="2" placeholder="Write a message..." aria-label="Message"></textarea>
+            <button type="submit">Send</button>
+          </form>
+          <p id="chat-file-name" class="muted"></p>
+        </section>
+
+        <section id="calendar" class="panel tab-content" hidden>
+          <p class="eyebrow">BAND SCHEDULE</p><h1>Calendar</h1>
+          <div class="month-nav"><button id="previous-month" class="quiet" type="button" aria-label="Previous month">‹</button><h2 id="month-title"></h2><button id="next-month" class="quiet" type="button" aria-label="Next month">›</button></div>
+          <div class="weekdays" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+          <div id="calendar-grid" class="calendar-grid"></div>
+          <h2 id="selected-date"></h2>
+          <div id="events" class="stack"></div>
+          <details class="form-details">
+            <summary>Add an event</summary>
+            <form id="event-form" class="stack">
+              <label>Event<input id="event-title" maxlength="200" required></label>
+              <label>Date<input id="event-date" type="date" required></label>
+              <label>Time<input id="event-time" type="time" value="19:00" required></label>
+              <label>Location<input id="event-location" maxlength="300"></label>
+              <button type="submit">Add event</button>
+            </form>
+          </details>
+        </section>
+
+        <section id="vault" class="panel tab-content" hidden>
+          <p class="eyebrow">SHARED FILES</p><h1>Vault</h1>
+          <form id="vault-form" class="stack">
+            <label>Category<select id="vault-category"><option value="photos">Photos</option><option value="videos">Videos</option><option value="music">Music</option><option value="recording_sessions">Recording Sessions</option><option value="backing_tracks">Backing Tracks</option></select></label>
+            <label>Choose a file<input id="vault-file" type="file" required></label>
+            <button type="submit">Upload to Vault</button>
+          </form>
+          <p class="muted">Files are private to the band. Maximum 50 MB each.</p>
+          <div id="files" class="file-grid"></div>
+        </section>
+      </section>
+      <p id="status" role="status" aria-live="polite"></p>
+    </main>
+    <dialog id="file-viewer" class="viewer">
+      <div class="section-heading">
+        <h2 id="viewer-title"></h2>
+        <button id="close-viewer" class="quiet" type="button">Close</button>
+      </div>
+      <p id="viewer-status" class="muted" role="status"></p>
+      <div id="viewer-content" class="viewer-content"></div>
+      <a id="viewer-download" class="viewer-download" download>Download file</a>
+    </dialog>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
